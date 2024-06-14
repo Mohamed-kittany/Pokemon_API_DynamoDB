@@ -1,5 +1,5 @@
 import requests
-from modules.pokemon import Pokemon
+from pokemon import Pokemon
 
 
 class PokemonAPI:

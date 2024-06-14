@@ -1,6 +1,6 @@
 import random
-from modules.pokemonapi import PokemonAPI
-from modules.dynamodb import DynamoDB
+from pokemonapi import PokemonAPI
+from dynamodb import DynamoDB
 
 
 class UserInteraction:
