@@ -10,6 +10,9 @@ SUBNET_TAG="PokemonSubnet"
 SECURITY_GROUP_TAG="PokemonSecurityGroup"
 IGW_TAG="PokemonIGW"
 ROUTE_TABLE_TAG="PokemonRouteTable"
+IAM_POLICY_NAME="DynamoDBCRUDPolicy"
+IAM_ROLE_NAME="DynamoDBAccessRole"
+IAM_INSTANCE_PROFILE_NAME="DynamoDBAccessInstanceProfile"
 
 # Function to delete EC2 instances
 delete_instances() {
@@ -104,14 +107,35 @@ delete_key_pair() {
     echo "Key pair $KEY_NAME deleted."
 }
 
+# Function to delete IAM policy, role, and instance profile
+delete_iam_resources() {
+    echo "Detaching policy from IAM role..."
+    aws iam detach-role-policy --role-name $IAM_ROLE_NAME --policy-arn arn:aws:iam::aws:policy/$IAM_POLICY_NAME
+    echo "Policy detached from role."
+
+    echo "Deleting IAM instance profile..."
+    aws iam remove-role-from-instance-profile --instance-profile-name $IAM_INSTANCE_PROFILE_NAME --role-name $IAM_ROLE_NAME
+    aws iam delete-instance-profile --instance-profile-name $IAM_INSTANCE_PROFILE_NAME
+    echo "IAM instance profile $IAM_INSTANCE_PROFILE_NAME deleted."
+
+    echo "Deleting IAM role..."
+    aws iam delete-role --role-name $IAM_ROLE_NAME
+    echo "IAM role $IAM_ROLE_NAME deleted."
+
+    echo "Deleting IAM policy..."
+    aws iam delete-policy --policy-arn arn:aws:iam::aws:policy/$IAM_POLICY_NAME
+    echo "IAM policy $IAM_POLICY_NAME deleted."
+}
+
 # Run the functions to delete resources in the correct order
 delete_instances
-delete_internet_gateway
 delete_route_tables
-delete_security_groups
+delete_internet_gateway
 delete_subnets
+delete_security_groups
 delete_vpcs
 delete_dynamodb_table
 delete_key_pair
+delete_iam_resources
 
 echo "Teardown completed. All resources have been deleted."

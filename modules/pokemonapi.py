@@ -1,5 +1,5 @@
 import requests
-from pokemon import Pokemon
+from .pokemon import Pokemon
 
 
 class PokemonAPI:
