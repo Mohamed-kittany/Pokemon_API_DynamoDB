@@ -12,13 +12,6 @@ class UserInteraction:
         """
         self.dynamo = DynamoDB(dynamo_table_name)
 
-    def ask_user(self):
-        """
-        Prompt the user to decide if they want to draw a Pokémon.
-
-        :return: True if the user wants to draw a Pokémon, False otherwise.
-        """
-        return input("Would you like to draw a Pokémon? (yes/no): ").strip().lower() == 'yes'
 
     def draw_pokemon(self):
         """

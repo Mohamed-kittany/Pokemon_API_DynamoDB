@@ -85,11 +85,11 @@ yum install -y python3-pip git aws-cli
 pip3 install boto3 requests
 
 # Add usage explanation to /etc/motd
-echo "Welcome to the Pokemon API DynamoDB instance!" >> /etc/motd
-echo "To use this server, follow these steps:" >> /etc/motd
-echo "1. The main script 'main.py' is located in the 'Pokemon_API_DynamoDB' directory." >> /etc/motd
-echo "2. You can start the script by navigating to the directory and running 'python3 main.py'." >> /etc/motd
-echo "3. Hope you enjoy ¯\\_(ツ)_/¯." >> /etc/motd
+echo -e "\nWelcome to the Pokemon API DynamoDB instance!" | sudo tee -a /etc/motd
+echo "To use this server, follow these steps:" | sudo tee -a /etc/motd
+echo "1. The main script 'main.py' is located in the 'Pokemon_API_DynamoDB' directory." | sudo tee -a /etc/motd
+echo "2. You can start the script by navigating to the directory and running 'python3 main.py'." | sudo tee -a /etc/motd
+echo "3. Hope you enjoy ¯\\_(ツ)_/¯." | sudo tee -a /etc/motd
 
 # Clone the repository and run the main script
 cd /home/ec2-user
